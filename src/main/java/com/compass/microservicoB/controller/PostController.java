@@ -1,5 +1,6 @@
 package com.compass.microservicoB.controller;
 
+import com.compass.microservicoB.model.Comment;
 import com.compass.microservicoB.model.Post;
 import com.compass.microservicoB.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,20 @@ public class PostController {
         Optional<Post> post = postService.getPostById(id);
         return post.map(ResponseEntity::ok)
                        .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<List<Comment>> getCommentsByPostId(@PathVariable String id) {
+        Optional<Post> post = postService.getPostById(id);
+        if (post.isPresent()) {
+            List<Comment> comments = post.get().getComments();
+            if (comments.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(comments);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")

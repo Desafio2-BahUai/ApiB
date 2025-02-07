@@ -3,23 +3,25 @@ package com.compass.microservicoB.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "posts")
 public class Post {
 
     @Id
     private String id;
-
     private String nome;
-
     private String email;
+    private List<Comment> comments;
 
 
     public Post() {}
 
-
-    public Post(String nome, String email) {
+    public Post(String id, String nome, String email, List<Comment> comments) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
+        this.comments = comments;
     }
 
 
@@ -47,14 +49,11 @@ public class Post {
         this.email = email;
     }
 
-    // toString
-    @Override
-    public String toString() {
-        return "Post{" +
-                       "id='" + id + '\'' +
-                       ", nome='" + nome + '\'' +
-                       ", email='" + email + '\'' +
-                       '}';
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
-
