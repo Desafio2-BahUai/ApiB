@@ -52,7 +52,12 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable String id) {
-        postService.deletePost(id);
-        return ResponseEntity.noContent().build();
+        Optional<Post> post = postService.getPostById(id);
+        if (post.isPresent()) {
+            postService.deletePost(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
