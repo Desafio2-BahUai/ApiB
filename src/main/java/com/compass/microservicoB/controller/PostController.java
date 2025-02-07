@@ -42,8 +42,11 @@ public class PostController {
     @PutMapping("/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable String id, @RequestBody Post postDetails) {
         Optional<Post> updatedPost = postService.updatePost(id, postDetails);
-        return updatedPost.map(ResponseEntity::ok)
-                       .orElseGet(() -> ResponseEntity.notFound().build());
+        if (updatedPost.isPresent()) {
+            return ResponseEntity.ok(updatedPost.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
