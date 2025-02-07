@@ -16,19 +16,21 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    // Criar um novo Post e salvar no banco
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
         Post createdPost = postService.createPost(post);
         return ResponseEntity.status(201).body(createdPost);
     }
 
-
     @GetMapping
     public ResponseEntity<List<Post>> getAllPosts() {
         List<Post> posts = postService.getAllPosts();
+        if (posts.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(posts);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable String id) {
@@ -36,7 +38,6 @@ public class PostController {
         return post.map(ResponseEntity::ok)
                        .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable String id, @RequestBody Post postDetails) {
