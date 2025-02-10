@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PostService {
+public class PostServico {
 
     @Autowired
     private PostRepository postRepository;
@@ -24,7 +24,7 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public Optional<Post> getPostById(String id) {
+    public Optional<Post> getBuscarPostsPorID(String id) {
         return postRepository.findById(id);
     }
 

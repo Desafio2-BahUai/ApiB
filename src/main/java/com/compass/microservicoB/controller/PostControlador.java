@@ -2,7 +2,7 @@ package com.compass.microservicoB.controller;
 
 import com.compass.microservicoB.model.Comment;
 import com.compass.microservicoB.model.Post;
-import com.compass.microservicoB.service.PostService;
+import com.compass.microservicoB.service.PostServico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,37 +12,39 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/posts")
-public class PostController {
-
+public class PostControlador 
+{
     @Autowired
-    private PostService postService;
+    private PostServico postServico;
 
-    // Criar um novo Post e salvar no banco
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        Post createdPost = postService.createPost(post);
-        return ResponseEntity.status(201).body(createdPost);
+    public ResponseEntity<Post> criarPost(@RequestBody Post post) 
+    {
+        Post postCriado = postServico.criarPost(post);
+        return ResponseEntity.status(201).body(postCriado);
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> getAllPosts() {
-        List<Post> posts = postService.getAllPosts();
-        if (posts.isEmpty()) {
+    public ResponseEntity<List<Post>> getTodosPosts() 
+    {
+        List<Post> posts = postServico.buscarTodos();
+        if (posts.isEmpty()) 
+        {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable String id) {
-        Optional<Post> post = postService.getPostById(id);
+    public ResponseEntity<Post> getBuscarPostsPorID(@PathVariable String id) {
+        Optional<Post> post = postServico.getBuscarPostsPorID(id);
         return post.map(ResponseEntity::ok)
                        .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<Comment>> getCommentsByPostId(@PathVariable String id) {
-        Optional<Post> post = postService.getPostById(id);
+        Optional<Post> post = postService.getBuscarPostsPorID(id);
         if (post.isPresent()) {
             List<Comment> comments = post.get().getComments();
             if (comments.isEmpty()) {
@@ -67,7 +69,7 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable String id) {
-        Optional<Post> post = postService.getPostById(id);
+        Optional<Post> post = postService.getBuscarPostsPorID(id);
         if (post.isPresent()) {
             postService.deletePost(id);
             return ResponseEntity.noContent().build();

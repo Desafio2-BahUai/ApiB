@@ -1,7 +1,7 @@
 package com.compass.microservicoB.controller;
 
 import com.compass.microservicoB.model.Post;
-import com.compass.microservicoB.service.PostService;
+import com.compass.microservicoB.service.PostServico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class PostController {
 
     @Autowired
-    private PostService postService;
+    private PostServico postService;
 
 
     @PostMapping
@@ -33,7 +33,7 @@ public class PostController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable String id) {
-        Optional<Post> post = postService.getPostById(id);
+        Optional<Post> post = postService.getBuscarPostsPorID(id);
         return post.map(ResponseEntity::ok)
                        .orElseGet(() -> ResponseEntity.notFound().build());
     }
