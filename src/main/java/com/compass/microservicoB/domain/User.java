@@ -1,4 +1,4 @@
-package com.compass.domain;
+package com.compass.microservicoB.domain;
 
 import java.io.Serializable;
 
