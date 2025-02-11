@@ -3,7 +3,7 @@ package com.compass.microservicoB.clients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.compass.microservicoB.model.Post;
+import com.compass.microservicoB.domain.Post;
 import com.compass.microservicoB.service.PostServico;
 
 import java.util.List;

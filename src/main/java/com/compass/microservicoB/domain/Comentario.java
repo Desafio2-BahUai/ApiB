@@ -1,4 +1,4 @@
-package com.compass.microservicoB.model;
+package com.compass.microservicoB.domain;
 
 public class Comentario {
     private String id;

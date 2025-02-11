@@ -1,4 +1,4 @@
-package com.compass.microservicoB.model;
+package com.compass.microservicoB.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
