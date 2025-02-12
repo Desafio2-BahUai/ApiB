@@ -1,4 +1,4 @@
-package com.compass.microservicoB.resources;
+package com.compass.microservicoB.controller;
  
 import java.util.List;
  
