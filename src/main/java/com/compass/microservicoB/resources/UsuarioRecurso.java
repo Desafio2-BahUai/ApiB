@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
- 
-import com.compass.microservicoB.domain.Usuario;
+
+import com.compass.microservicoB.model.Usuario;
 import com.compass.microservicoB.service.UsuarioServico;
  
 @RestController

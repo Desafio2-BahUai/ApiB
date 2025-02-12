@@ -4,8 +4,8 @@ import java.util.List;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
- 
-import com.compass.microservicoB.domain.Usuario;
+
+import com.compass.microservicoB.model.Usuario;
 import com.compass.microservicoB.repository.UsuarioRepositorio;
  
 @Service
