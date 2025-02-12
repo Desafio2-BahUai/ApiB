@@ -1,6 +1,6 @@
 package com.compass.microservicoB.service;
 
-import com.compass.microservicoB.domain.Post;
+import com.compass.microservicoB.model.Post;
 import com.compass.microservicoB.repository.PostRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

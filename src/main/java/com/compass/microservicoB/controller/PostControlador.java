@@ -1,7 +1,7 @@
-package com.compass.microservicoB.resources;
+package com.compass.microservicoB.controller;
 
-import com.compass.microservicoB.domain.Comentario;
-import com.compass.microservicoB.domain.Post;
+import com.compass.microservicoB.model.Comentario;
+import com.compass.microservicoB.model.Post;
 import com.compass.microservicoB.service.PostServico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/posts")
-public class PostRecurso 
+public class PostControlador 
 {
     @Autowired
     private PostServico postServico;
