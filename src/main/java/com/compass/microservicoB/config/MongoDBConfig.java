@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 public class MongoDBConfig 
 {
     private static final String CONNECTION_STRING = "mongodb://localhost:27017";
-    private static final String DATABASE_NAME = "Teste";
+    private static final String DATABASE_NAME = "microservicoB";
 
     @Bean
     public MongoClient mongoClient() 

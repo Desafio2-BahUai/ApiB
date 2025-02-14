@@ -1,8 +1,13 @@
 package com.compass.microservicoB.service;
 
-import com.compass.microservicoB.model.Post;
+import com.compass.microservicoB.dto.PostDTO;
+import com.compass.microservicoB.entity.Post;
+import com.compass.microservicoB.exception.ExceptionBancoDados;
+import com.compass.microservicoB.exception.ExceptionClasseNaoEncontrada;
 import com.compass.microservicoB.repository.PostRepositorio;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,38 +19,49 @@ public class PostServico
     @Autowired
     private PostRepositorio postRepositorio;
 
-    public Post criarPost(Post post) 
-    {
-        return postRepositorio.save(post);
-    }
-
     public List<Post> buscarTodos() 
     {
-        return postRepositorio.findAll();
+        try 
+        {
+            return postRepositorio.findAll();
+        }
+        catch(DataAccessException e)
+        {
+            throw new ExceptionBancoDados("Erro ao conectar com o banco de dados!");
+        }
     }
 
-    public Optional<Post> buscarPostPorID(String id) 
+    public Post buscarPostPorID(String id) 
     {
-        return postRepositorio.findById(id);
+        Optional<Post> post = postRepositorio.findById(id);
+        return post.orElseThrow(() -> new ExceptionClasseNaoEncontrada("Post não encontrado!"));
     }
 
-    public Optional<Post> atualizarPost(String id, Post postDetails) 
+    public Optional<Post> atualizarPost(String id, Post postAtualizado) 
     {
         return postRepositorio.findById(id).map(post -> 
         {
-            post.setNome(postDetails.getNome());
-            post.setEmail(postDetails.getEmail());
-            if (postDetails.getComentarios() != null) 
-            {
-                post.setComentarios(postDetails.getComentarios());
-            }
+            post.setTitulo(postAtualizado.getTitulo());
+            post.setCorpo(postAtualizado.getCorpo());
             return postRepositorio.save(post);
         });
     }
 
     public void deletarPost(String id) 
     {
-        postRepositorio.deleteById(id);
+        if (!postRepositorio.existsById(id)) 
+        {
+            throw new ExceptionClasseNaoEncontrada("Post não encontrado!");
+        }
+
+        try 
+        {
+            postRepositorio.deleteById(id);
+        } 
+        catch (DataAccessException e) 
+        {
+            throw new ExceptionBancoDados("Erro ao conectar com o banco de dados!");
+        }
     }
 
     public Post salvar(Post post)
@@ -54,9 +70,14 @@ public class PostServico
         {
             return postRepositorio.save(post);
         }
-        catch (RuntimeException e)
+        catch (DataAccessException e)
         {
-            throw new RuntimeException("Erro no banco de dados.");
+            throw new ExceptionBancoDados("Erro ao conectar com o banco de dados!");
         }
+    }
+
+    public Post paraPostDTO(PostDTO postDTO)
+    {
+        return new Post(postDTO.getId(), postDTO.getUsuarioID(), postDTO.getTitulo(), postDTO.getCorpo());
     }
 }

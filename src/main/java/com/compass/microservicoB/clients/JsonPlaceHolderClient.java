@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.compass.microservicoB.model.Post;
+import com.compass.microservicoB.entity.Post;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface JsonPlaceHolderClient
   List<Post> getPosts();
 
   @GetMapping("/posts/{id}")
-  Post getBuscarPostsPorID(@PathVariable Long id);
+  Post buscarPostsPorID(@PathVariable Long id);
 
   @PostMapping("/posts")
   Post criarPost(@RequestBody Post post);

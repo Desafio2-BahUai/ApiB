@@ -3,7 +3,7 @@ package com.compass.microservicoB.clients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.compass.microservicoB.model.Post;
+import com.compass.microservicoB.entity.Post;
 import com.compass.microservicoB.service.PostServico;
 
 import java.util.List;
@@ -21,12 +21,12 @@ public class JsonPlaceHolderService
       this.client = client;
     }
 
-    public Post fetchPost(Long id) 
+    public Post buscarPost(Long id) 
     {
-      return client.getBuscarPostsPorID(id);
+      return client.buscarPostsPorID(id);
     }
 
-    public void fetchData() 
+    public void buscarDados() 
     {
       List<Post> posts = client.getPosts();
 

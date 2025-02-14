@@ -17,5 +17,6 @@ Microserviço A:
 @thejinM
 
 Microserviço B:
+@thejinM
 @GustAres
 @Arthurhl-compasso
